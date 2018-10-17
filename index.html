@@ -1,0 +1,24 @@
+<html>
+	<style>
+	body{
+		margin:0;
+		padding:0;
+	}
+	</style>
+	<body>
+		<canvas id="canvas"></canvas>
+		<img id="eraser" style="display:none;" src="eraser.png">
+		<img id="reset" style="display:none;" src="reset.png">
+	</body>
+	<script>
+		//constants
+		const pageColor = "#f0f0f0"
+		const colors = ["red","green","blue","black","orange"]
+		const cols = 14
+		const rows = 8
+		if(rows > cols){
+			alert("rows > cols, may cause errors")
+		}
+	</script>
+	<script src="main.js"></script>
+</html>
