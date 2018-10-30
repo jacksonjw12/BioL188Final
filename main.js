@@ -17,8 +17,19 @@ for(var r = 0; r<rows; r++ ){
 		row.push("white")
 	}
 	m.push(row)
-
 }
+
+if (typeof(Storage) !== "undefined") {
+	var storage = localStorage.getItem("grid")
+	if (storage !== null){
+		m = JSON.parse(storage)
+	}
+	else{
+		localStorage.setItem("grid",JSON.stringify(m))
+	}
+}
+
+
 
 const sidebarScreenRatio = .2
 
@@ -189,6 +200,9 @@ function onMainClick(click){
 			
 			if(Math.sqrt(Math.pow(w.min+cc*squareSize+squareSize/2-click.x,2)+Math.pow(h.min+r*squareSize+squareSize/2-click.y,2)) < squareSize/2){
 				m[r][cc] = userColor
+				if (typeof(Storage) !== "undefined") {
+					localStorage.grid = JSON.stringify(m)
+				}
 			}
 
 			// c.ctx.fillStyle = m[r][cc]
@@ -224,6 +238,9 @@ function onSidebarClick(click){
 					
 					for(var cc = 0; cc< cols; cc++){
 						m[r][cc] = "white"
+						if (typeof(Storage) !== "undefined") {
+							localStorage.grid = JSON.stringify(m)
+						}
 					}
 
 				}
