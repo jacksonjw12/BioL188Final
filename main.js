@@ -169,7 +169,7 @@ let drawSidebar = function(){
 		c.ctx.drawImage(eraser,0,0,eraser.naturalWidth,eraser.naturalHeight,(sidebarRows-1)*buttonSize,c.height*tempRatio,buttonSize,c.height*sidebarScreenRatio/2)
 
 		if(specialSelect == "eraser"){
-			
+
 			c.ctx.fillStyle = "rgba(0,0,0,.1)"
 			//c.ctx.drawImage(eraser,0,0,eraser.naturalWidth,eraser.naturalHeight,(sidebarRows-1)*buttonSize,c.height*tempRatio,buttonSize,c.height*sidebarScreenRatio/2)
 			c.ctx.fillRect((sidebarRows-1)*buttonSize,c.height*tempRatio,buttonSize,c.height*sidebarScreenRatio/2)
@@ -497,8 +497,13 @@ function onClick(event){
 	}
 	
 }
+function onTouch(event){
+	event.preventDefault()
+	onClick(event.changedTouches[0])
+}
 window.addEventListener('resize',onResize);
 window.addEventListener('click',onClick)
+window.addEventListener('touchend',onTouch)
 // window.addEventListener('ontouch',onClick)
 
 onResize();
