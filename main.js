@@ -292,8 +292,8 @@ function onResize(event){
 		h = {"min":.1 * c.height,"max": .9* c.height}
 	}
 	else{
-		w = {"min":.1 * c.width,"max": .9* c.width}
-		h = {"min":.05 * c.height,"max": .7* c.height}
+		w = {"min":.02 * c.width,"max": 1* c.width}
+		h = {"min":0 * c.height,"max": .8* c.height}
 	}
 	
 
