@@ -54,13 +54,13 @@ let drawSidebar = function(){
 
 	
 	if(orientation == "x"){
-		let sidebarRows= Math.ceil(colors.length/2 )+1
+		let sidebarRows= Math.ceil(6/2 )+1
 		let buttonSize = c.height/sidebarRows
 		let outline = -1;
 		for(var r = 0; r<sidebarRows; r++ ){
 			
 			
-			if(r*2 < colors.length){
+			if(r*2 < 6){
 				console.log(r)
 				c.ctx.fillStyle = colors[r*2]
 				c.ctx.fillRect(0,r*buttonSize,c.width*sidebarScreenRatio/2,buttonSize)
@@ -70,7 +70,7 @@ let drawSidebar = function(){
 					c.ctx.fillRect(0,r*buttonSize,c.width*sidebarScreenRatio/2,buttonSize)
 					outline = r*2
 				}
-				if(r*2+1 < colors.length){
+				if(r*2+1 < 6){
 					c.ctx.fillStyle = colors[r*2+1]
 					
 					c.ctx.fillRect(c.width*sidebarScreenRatio/2,0 + r*buttonSize,c.width*sidebarScreenRatio/2,buttonSize)
@@ -124,13 +124,13 @@ let drawSidebar = function(){
 	else{
 		let tempRatio = 1-sidebarScreenRatio
 		let tempRatio2 = 1-sidebarScreenRatio/2
-		let sidebarRows= Math.ceil(colors.length/2 )+1
+		let sidebarRows= Math.ceil(6/2 )+1
 		let buttonSize = c.width/sidebarRows
 		let outline = -1;
 		for(var r = 0; r<sidebarRows; r++ ){
 			
 			
-			if(r*2 < colors.length){
+			if(r*2 < 6){
 				c.ctx.fillStyle = colors[r*2]
 				c.ctx.fillRect(r*buttonSize,c.height*tempRatio,buttonSize,c.height)
 
@@ -139,7 +139,7 @@ let drawSidebar = function(){
 					c.ctx.fillRect(r*buttonSize,c.height*tempRatio,buttonSize,c.height)
 					outline = r*2
 				}
-				if(r*2+1 < colors.length){
+				if(r*2+1 < 6){
 					c.ctx.fillStyle = colors[r*2+1]
 					
 					c.ctx.fillRect(r*buttonSize,c.height*tempRatio2,buttonSize,c.height)
@@ -254,7 +254,7 @@ function drawMain(){
 			c.ctx.stroke()
 		}
 		for(var r = 0; r<rows; r++ ){
-			for(var cc = 0; cc< cols; cc++){
+			for(var cc = cols-1; cc>=0; cc--){
 				c.ctx.fillStyle = m[r][cc]
 				c.ctx.beginPath();
 				c.ctx.arc(w.min+r*squareSize+squareSize/2,h.min+cc*squareSize+squareSize/2,squareSize/2,0,2*Math.PI);
@@ -340,7 +340,7 @@ function onMainClick(click){
 		for(var cc = 0; cc< cols; cc++){
 			if(orientation == "x"){
 				if(Math.sqrt(Math.pow(w.min+cc*squareSize+squareSize/2-click.x,2)+Math.pow(h.min+r*squareSize+squareSize/2-click.y,2)) < squareSize/2){
-					m[r][cc] = userColor
+					colorSelector(r, cc);
 					if (typeof(Storage) !== "undefined") {
 						localStorage.grid = JSON.stringify(m)
 					}
@@ -348,7 +348,7 @@ function onMainClick(click){
 			}
 			else{
 				if(Math.sqrt(Math.pow(h.min+cc*squareSize+squareSize/2-click.y,2)+Math.pow(w.min+r*squareSize+squareSize/2-click.x,2)) < squareSize/2){
-					m[r][cc] = userColor
+					colorSelector(r, cc);
 					if (typeof(Storage) !== "undefined") {
 						localStorage.grid = JSON.stringify(m)
 					}
@@ -365,9 +365,125 @@ function onMainClick(click){
 	}
 	draw()
 }
+function colorSelector(r, cc) {
+	if (m[r][cc] != "white" && userColor != m[r][cc]) {
+		if (userColor == "red") {
+			switch (m[r][cc]) {
+				case "blue":
+					m[r][cc] = "blueviolet";
+					break;
+				case "green":
+					m[r][cc] = "brown";
+					break;
+				case "yellow":
+					m[r][cc] = "orange";
+					break;
+				case "black":
+					m[r][cc] = "black";
+					break;
+				case "darkorange":
+					m[r][cc] = "orangered";
+					break;
+				default:
+					m[r][cc] = "white";
+			}
+		}
+		else if (userColor == "blue") {
+			switch (m[r][cc]) {
+				case "red":
+					m[r][cc] = "blueviolet";
+					break;
+				case "green":
+					m[r][cc] = "turquoise";
+					break;
+				case "yellow":
+					m[r][cc] = "green";
+					break;
+				case "black":
+					m[r][cc] = "black";
+					break;
+				case "darkorange":
+					m[r][cc] = "brown";
+					break;
+				default:
+					m[r][cc] = "white";
+			}
+		}
+		else if (userColor == "green") {
+			switch (m[r][cc]) {
+				case "red":
+					m[r][cc] = "brown";
+					break;
+				case "blue":
+					m[r][cc] = "turquoise";
+					break;
+				case "yellow":
+					m[r][cc] = "YellowGreen";
+					break;
+				case "black":
+					m[r][cc] = "black";
+					break;
+				case "darkorange":
+					m[r][cc] = "brown";
+					break;
+				default:
+					m[r][cc] = "white";
+			}
+		}
+		else if (userColor == "yellow") {
+			switch (m[r][cc]) {
+				case "red":
+					m[r][cc] = "darkorange";
+					break;
+				case "blue":
+					m[r][cc] = "green";
+					break;
+				case "green":
+					m[r][cc] = "YellowGreen";
+					break;
+				case "black":
+					m[r][cc] = "black";
+					break;
+				case "darkorange":
+					m[r][cc] = "orange";
+					break;
+				default:
+					m[r][cc] = "white";
+			}
+		}
+		else if (userColor == "darkorange") {
+			switch (m[r][cc]) {
+				case "red":
+					m[r][cc] = "orangered";
+					break;
+				case "blue":
+					m[r][cc] = "brown";
+					break;
+				case "yellow":
+					m[r][cc] = "orange";
+					break;
+				case "black":
+					m[r][cc] = "black";
+					break;
+				case "green":
+					m[r][cc] = "brown";
+					break;
+				default:
+					m[r][cc] = "white";
+			}
+		}
+		else {
+			m[r][cc] = userColor;
+		}
+	}
+	else {
+		m[r][cc] = userColor;
+	}
+}
+
 function onSidebarClick(click){
 	specialSelect = "none"
-	let sidebarRows= Math.ceil(colors.length/2 )+1
+	let sidebarRows= Math.ceil(6/2 )+1
 	//console.log(c.height)
 	if(orientation == "x"){
 		let buttonSize = c.height/sidebarRows
@@ -408,7 +524,7 @@ function onSidebarClick(click){
 			}
 			
 			color += (  Math.floor(click.y / buttonSize))*2
-			if(color+1 > colors.length){
+			if(color+1 > 6){
 				userColor = "white"
 
 			}
@@ -441,6 +557,7 @@ function onSidebarClick(click){
 					for(var r = 0; r<rows; r++ ){
 						
 						for(var cc = 0; cc< cols; cc++){
+							
 							m[r][cc] = "white"
 							if (typeof(Storage) !== "undefined") {
 								localStorage.grid = JSON.stringify(m)
@@ -461,7 +578,7 @@ function onSidebarClick(click){
 			}
 			
 			color += (  Math.floor(click.x / buttonSize))*2
-			if(color+1 > colors.length){
+			if(color+1 > 6){
 				userColor = "white"
 
 			}
