@@ -202,10 +202,14 @@ let drawSidebar = function(){
 		//c.ctx.drawImage(eraser,0,0,eraser.naturalWidth,eraser.naturalHeight,0,(sidebarRows-1)*buttonSize,c.width*sidebarScreenRatio/2,buttonSize)
 
 }
+function intsToChars(i){
+	return String.fromCharCode(64+i)
+}
 function drawMain(){
 	//console.log(c)
 	c.ctx.strokeStyle = "black"
-
+	c.ctx.font="20px Georgia";
+	c.ctx.fillStyle = "black"
 	c.ctx.beginPath()
 	c.ctx.moveTo(w.min,h.min)
 	c.ctx.lineTo(w.min,h.max)
@@ -221,13 +225,18 @@ function drawMain(){
 			c.ctx.moveTo(w.min,h.min + r*squareSize)
 			c.ctx.lineTo(w.max,h.min + r*squareSize)
 			c.ctx.stroke()
+			c.ctx.fillText(intsToChars(r),w.min-20,h.min + r*squareSize-squareSize/2)
 		}
+		c.ctx.fillText(intsToChars(rows),w.min-20,h.min + rows*squareSize-squareSize/2)
 		for(var cc = 1; cc< cols; cc++){
 			c.ctx.beginPath()
 			c.ctx.moveTo(w.min+cc*squareSize,h.min)
 			c.ctx.lineTo(w.min+cc*squareSize,h.max)
 			c.ctx.stroke()
+			c.ctx.fillText(cc,w.min+cc*squareSize-squareSize/2,h.min-10)
 		}
+		c.ctx.fillText(cols,w.min+cols*squareSize-squareSize/2,h.min-10)
+
 		for(var r = 0; r<rows; r++ ){
 			for(var cc = 0; cc< cols; cc++){
 				c.ctx.fillStyle = m[r][cc]
@@ -246,6 +255,8 @@ function drawMain(){
 			c.ctx.moveTo(w.min + r*squareSize,h.min)
 			c.ctx.lineTo(w.min + r*squareSize,h.max)
 			c.ctx.stroke()
+			c.ctx.fillText("TEST TEST TEST",w.min + r*squareSize-100,h.min)
+
 		}
 		for(var cc = 1; cc< cols; cc++){
 			c.ctx.beginPath()
